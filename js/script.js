@@ -1,4 +1,5 @@
 const userProfile = document.querySelector(".overview");
+const repoList = document.querySelector(".repo-list");
 const username = "Hyuuga81";
 console.clear();
 
@@ -30,4 +31,24 @@ const getUserInfo = function (data) {
     </div> 
     `;
     userProfile.append(div);
+    getRepos();
 }
+
+//FUnction to fetch your repos from github
+const getRepos = async function () {
+    const request = await fetch(`https://api.github.com/users/${username}/repos?sort=newest&per_page=100`);
+    const repoInfo = await request.json();
+    console.log(repoInfo);
+    displayRepos(repoInfo);
+};
+
+//Function to display repo information
+const displayRepos = function (repos) {
+    for (const item of repos) {
+        const repoItem = document.createElement("li");
+        repoItem.classList.add("item");
+        repoItem.innerHTML = `<h3>${item.name}</h3>`;
+        repoList.append(repoItem);
+    }
+    
+};
