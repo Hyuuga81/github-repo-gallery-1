@@ -2,6 +2,8 @@ const profileInfo = document.querySelector(".overview");
 const repoList = document.querySelector(".repo-list");
 const reposInfo = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const backToRepos = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 const username = "Hyuuga81";
 console.clear();
 
@@ -44,6 +46,7 @@ const getRepoInfo = async function () {
 
 //Function to display information about each repo
 const displayRepoInfo = function (repos) {
+    filterInput.classList.remove("hide");
     for (const item of repos) {
         const li = document.createElement("li");
         li.classList.add("repo");
@@ -93,4 +96,31 @@ const displaySpecRepo = function (repoInfo, languages) {
     repoData.append(div);
     repoData.classList.remove("hide");
     repoList.classList.add("hide");
-}
+    backToRepos.classList.remove("hide");
+};
+
+//Event listener for click on back button
+backToRepos.addEventListener("click", function () {
+    reposInfo.classList.remove("hide");
+    repoData.classList.add("hide");
+    backToRepos.classList.add("hide");
+    repoList.classList.remove("hide");
+    // filterInput.value = ""; tried to force all repos to appear without backspacing search text
+});
+
+//Input event listener for filterInput
+filterInput.addEventListener("input", function (e) {
+    const searchText = e.target.value;
+    // console.log(searchText);
+    const repos = document.querySelectorAll(".repo");
+    const lowerSearchText = searchText.toLowerCase();
+
+    for (const repo of repos) {
+        const lowerRepoText = repo.innerText.toLowerCase();
+        if (lowerRepoText.includes(lowerSearchText)) {
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        }
+    }
+});
