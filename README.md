@@ -1,0 +1,2 @@
+# github-repo-gallery-1
+The Github repo gallery is a useful page for developers. This is my favorite javascript project to date. You can show your github profile along with every repo you have in your repository with this app. It also updates the information as your repository's size increases. This app relies heavily on APIs, json and knowledge of objects. It also uses DOM manipulation, and a search bar to find a specific repository in the gallery. 
